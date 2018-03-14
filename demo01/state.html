@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>state</title>
+    <script src="build/react.js"></script>
+    <script src="build/react-dom.js"></script>
+    <script src="build/browser.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+    var InputState = React.createClass({
+        getInitialState: function () {
+            return {enable: false};
+        },
+        handleClick: function (event) {
+            return this.setState({enable: !this.state.enable});
+        },
+        render: function () {
+            return (
+                <div>
+                    <input type="text" ref="getInputState" disabled={this.state.enable} />
+                    <button onClick={this.handleClick}>点击</button>
+                </div>
+            )
+        }
+    });
+    ReactDOM.render(
+        <InputState/>,
+        document.getElementById('example')
+    )
+</script>
+</body>
+</html>
