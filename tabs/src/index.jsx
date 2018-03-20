@@ -1,16 +1,22 @@
-// import React, { Component } from 'react';
-// import ReactDOM from 'react-dom';
 
-// import Hello from '../component/hello.jsx';
-// import './index.scss';
+/*
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
-// ReactDOM.render(
-//     <div className="page">
-//         <Hello/>
-//     </div>,
-//     document.getElementById('page')
-// );
+import Hello from '../component/hello.jsx';
+import './index.scss';
 
+ReactDOM.render(
+    <div className="page">
+        <Hello/>
+    </div>,
+    document.getElementById('page')
+);
+*/
+
+
+
+/*
 import Tabs from '../component/tabs.jsx';
 import '../component/tabs.scss';
 
@@ -23,5 +29,17 @@ const tab = new Tabs({
 
 tab.events.on('change', (o) => {
     console.log(o);
-});
+});*/
 
+
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+
+import TabsComponent from '../component/TabsComponent.jsx';
+import './index.scss';
+import '../component/tabs.scss';
+
+ReactDOM.render(
+    <TabsComponent />,
+    document.getElementById('page')
+);
