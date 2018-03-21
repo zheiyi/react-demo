@@ -1,5 +1,3 @@
-.page {
-  font-size: 20px; }
 .tabs-bar {
   margin-bottom: 16px; }
 
@@ -29,4 +27,4 @@
   display: none; }
 
 .tabs-content .tabs-active {
-  display: none; }
+  display: block; }

@@ -22,6 +22,6 @@
 .tabs-content .tabs-panel {
   display: none; }
 .tabs-content .tabs-active {
-  display: none; }
+  display: block; }
 
 /*# sourceMappingURL=tabs.css.map */

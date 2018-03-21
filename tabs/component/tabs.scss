@@ -38,6 +38,6 @@ $class-prefix: "tabs";
   }
 
   &-content &-active {
-    display: none;
+    display: block;
   }
 }
