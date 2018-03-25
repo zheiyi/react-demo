@@ -20,13 +20,26 @@ module.exports = {
             test: /\.(png|jpg|gif)$/,
             loader: 'url-loader?limit=8192'
         }, {
+            //     test: /\.css$/,
+            //     loaders: [
+            //         'style-loader',
+            //         'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]'
+            //     ]
+            // }, {
             test: /\.css$/,
-            loader: 'style-loader!css-loader'
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: 'css-loader?modules,localIdentName="[name]-[local]-[hash:base64:6]"'
+            }),
         }, {
             test: /\.scss$/,
             loaders: ExtractTextPlugin.extract({
                 fallback: 'style-loader',
-                use: ['css-loader', 'sass-loader']
+                use: [
+                    'css-loader?modules,localIdentName="[name]-[local]-[hash:base64:6]"',
+                    'resolve-url-loader',
+                    'sass-loader'
+                ]
             })
         }, {
             test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -37,6 +50,9 @@ module.exports = {
         }, ]
     },
     plugins: [
-        new ExtractTextPlugin('index.css')
+        new ExtractTextPlugin({
+            filename: 'index.css',
+            allChunks: true
+        })
     ]
 };
