@@ -1,20 +1,28 @@
-import React, { Component, cloneElement } from 'react';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-
+import EventEmitter from 'events';
 import classnames from 'classnames';
+import CSSModules from 'react-css-modules';
+import { Seq } from 'immutable';
+import { immutableRenderDecorator } from 'react-immutable-render-minix';
+import { Motion, spring } from 'react-motion';
 
+import styles from './app.scss';
+
+@immutableRenderDecorator
+@CSSModules(styles, { allowMultiple: true})
 class TabContent extends Component {
 
     static propTypes = {
-        classPrefix: PropTypes.string,
-        panels:  PropTypes.node,
+        panels:  PropTypes.object,
         activeIndex: PropTypes.number,
     };
 
-    getTabPanels() {
-        const { classPrefix, activeIndex, panels } = this.props;
+    getTabPanes() {
+        const { activeIndex, panels } = this.props;
 
-        return React.Children.map(panels, (child) => {
+        return panels.map((child) => {
             if (!child) {
                 return;
             }
@@ -22,7 +30,6 @@ class TabContent extends Component {
             const isActive = activeIndex === order;
 
             return React.cloneElement(child, {
-                classPrefix,
                 isActive,
                 children: child.props.children,
                 key: `tabpane-${order}`,
@@ -31,15 +38,13 @@ class TabContent extends Component {
     }
 
     render() {
-        const { classPrefix } = this.props;
-
         const classes = classnames({
-            [`${classPrefix}-content`]: true,
+            'content': true,
         });
 
         return (
-            <div className={classes}>
-                {this.getTabPanels()}
+            <div styleName={classes}>
+                {this.getTabPanes()}
             </div>
         );
     }

@@ -36,11 +36,19 @@ tab.events.on('change', (o) => {
 // tabs component demo
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import EventEmitter from 'events';
+import classnames from 'classnames';
+import CSSModules from 'react-css-modules';
+import { Seq } from 'immutable';
+import { immutableRenderDecorator } from 'react-immutable-render-minix';
+import { Motion, spring } from 'react-motion';
+import styles from './app.scss';
 
 import TabsComponent from '../component/TabsComponent.jsx';
 import TabPane from '../component/TabPane.jsx';
 
-import '../component/tabs.scss';
+import '../component/app.scss';
 import 'font-awesome/css/font-awesome.min.css';
 
 /*
@@ -63,3 +71,4 @@ ReactDOM.render(
     </TabsComponent>,
     document.getElementById('page')
 );
+

@@ -1,22 +1,23 @@
-.-tabs-tabs-bar-1tnzrP- {
+.-app-bar-1sL5F6- {
+  position: relative;
   margin-bottom: 16px;
 }
 
-.-tabs-tabs-nav-2NPeOf- {
+.-app-nav-3BFdSM- {
   font-size: 14px;
 }
 
-.-tabs-tabs-nav-2NPeOf-:after,
-.-tabs-tabs-nav-2NPeOf-:before {
+.-app-nav-3BFdSM-:after,
+.-app-nav-3BFdSM-:before {
   display: table;
   content: " ";
 }
 
-.-tabs-tabs-nav-2NPeOf-:after {
+.-app-nav-3BFdSM-:after {
   clear: both;
 }
 
-.-tabs-tabs-nav-2NPeOf- > .-tabs-tabs-tab-36rX4N- {
+.-app-tab-2P0eVE- {
   float: left;
   list-style: none;
   margin-right: 24px;
@@ -26,18 +27,31 @@
   cursor: pointer;
 }
 
-.-tabs-tabs-nav-2NPeOf- > .-tabs-tabs-active-WEJyFe- {
-  border-bottom: 2px solid #00C49F;
+.-app-tabActive-17V3Eu- {
   color: #00C49F;
   cursor: default;
 }
 
-.-tabs-tabs-content-2I-Nuj- .-tabs-tabs-panel-13nEIp- {
+.-app-panel-2bVf5s- {
   display: none;
 }
 
-.-tabs-tabs-content-2I-Nuj- .-tabs-tabs-active-WEJyFe- {
+.-app-content-2Kusmq- {
   display: block;
+}
+
+.-app-contentActive-2UZzPm- {
+  display: block;
+}
+
+.-app-inkBar-9Plmxf- {
+  position: absolute;
+  left: 0;
+  bottom: 1px;
+  box-sizing: border-box;
+  height: 2px;
+  background-color: #00C49F;
+  z-index: 1;
 }/*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)

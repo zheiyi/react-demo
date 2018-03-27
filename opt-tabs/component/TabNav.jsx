@@ -1,19 +1,75 @@
-import React, { Component, cloneElement } from 'react';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-
+import EventEmitter from 'events';
 import classnames from 'classnames';
+import CSSModules from 'react-css-modules';
+import { Seq } from 'immutable';
+import { immutableRenderDecorator } from 'react-immutable-render-minix';
+import { Motion, spring } from 'react-motion';
+import InkBar from './InkBar.jsx';
 
+import styles from './app.scss';
+
+function getOuterWidth(el) {
+    return el.offsetWidth;
+}
+
+function getOffset(el) {
+    const html = el.ownerDocument.documentElement;
+    const box = el.getBoundingClientRect();
+
+    return {
+        top: box.top + window.pageYOffset - html.clientTop;
+        left: box.left + window.pageXOffset - html.clientLeft;
+    }
+}
+
+@immutableRenderDecorator
+@CSSModules(styles, { allowMultiple: true})
 class TabNav extends Component {
     static propTypes = {
-        classPrefix: PropTypes.string,
-        panels: PropTypes.node,
+        panels: PropTypes.object,
         activeIndex: PropTypes.number,
     };
 
-    getTabs() {
-        const { panels, classPrefix, activeIndex } = this.props;
+    constructor(props) {
+        super(props);
 
-        return React.Children.map(panels, (child) => {
+        this.state = {
+            inkBarWidth: 0,
+            inkBarLeft: 0,
+        }
+    }
+
+    componentDidMount() {
+        const { activeIndex } = this.props;
+        const node = ReactDOM.findDOMNode(this);
+        const el = node.querySelectorAll('li')[activeIndex];
+
+        this.setState({
+            inkBarWidth: getOuterWidth(el),
+            inkBarLeft: getOffset(el).left,
+        });
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.activeIndex !== this.props.activeIndex) {
+            const { activeIndex } = this.props;
+            const node = ReactDOM.findDOMNode(this);
+            const el = node.querySelectorAll('li')[activeIndex];
+
+            this.setState({
+                inkBarWidth: getOuterWidth(el),
+                inkBarLeft: getOffset(el).left,
+            });
+        }
+    }
+
+    getTabs() {
+        const { panels, activeIndex } = this.props;
+
+        return panels.map((child) => {
             if (!child) {
                 return;
             }
@@ -21,9 +77,9 @@ class TabNav extends Component {
             const order = parseInt(child.props.order, 10);
 
             let classes = classnames({
-                [`${classPrefix}-tab`]: true,
-                [`${classPrefix}-active`]: activeIndex === order,
-                [`${classPrefix}-disabled`]: child.props.disabled,
+                'tab': true,
+                'tabActive': activeIndex === order,
+                'disabled': child.props.disabled,
             });
 
             let events = {};
@@ -44,7 +100,7 @@ class TabNav extends Component {
                     aria-disabled={child.props.disabled ? 'true' : 'false'}
                     aria-selected={activeIndex === order ? 'true' : 'false'}
                     {...events}
-                    className={classes}
+                    styleName={classes}
                     key={order}
                     {...ref}>
                     {child.props.tab}
@@ -57,16 +113,19 @@ class TabNav extends Component {
         const { classPrefix } = this.props;
 
         const rootClasses = classnames({
-            [`${classPrefix}-bar`]: true,
+            'bar': true,
         });
 
         const classes = classnames({
-            [`${classPrefix}-nav`]: true,
+            'nav': true,
         });
 
         return (
-            <div className={rootClasses} role="tablist">
-                <ul className={classes}>
+            <div styleName={rootClasses} role="tablist">
+                <Motion style={{ left: spring(this.state.inkBarLeft) }}>
+                    { ({ left }) => <InkBar width={this.state.inkBarWidth} left={left} /> }
+                </Motion>
+                <ul styleName={classes}>
                     {this.getTabs()}
                 </ul>
             </div>

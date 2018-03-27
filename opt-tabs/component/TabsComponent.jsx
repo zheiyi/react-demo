@@ -1,15 +1,22 @@
-import React, { Component, cloneElement } from 'react';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-
+import EventEmitter from 'events';
 import classnames from 'classnames';
+import CSSModules from 'react-css-modules';
+import { Seq } from 'immutable';
+import { immutableRenderDecorator } from 'react-immutable-render-minix';
+import { Motion, spring } from 'react-motion';
 
 import TabContent from './TabContent.jsx';
 import TabNav from './TabNav.jsx';
 
+import styles from './app.scss';
+
+@immutableRenderDecorator
+@CSSModules(styles, { allowMultiple: true })
 class TabsComponent extends Component {
     static propTypes = {
-        className: PropTypes.string,
-        classPrefix: PropTypes.string,
         children: PropTypes.oneOfType([
             PropTypes.arrayOf(PropTypes.node),
             PropTypes.node,
@@ -30,6 +37,7 @@ class TabsComponent extends Component {
         super(props);
 
         this.handleTabClick = this.handleTabClick.bind(this);
+        this.immChildren = Seq(currProps.children); // todo
 
         const currProps = this.props;
 
@@ -65,32 +73,26 @@ class TabsComponent extends Component {
                 prevIndex,
             });
 
-            this.props.onChange({activeIndex, prevIndex});
+            this.props.onChange({ activeIndex, prevIndex });
         }
     }
 
     renderTabNav() {
-        const { classPrefix, children} = this.props;
-
         return (
             <TabNav
                 key="tabBar"
-                classPrefix={classPrefix}
                 onTabClick={this.handleTabClick}
-                panels={children}
+                panels={this.immChildren}
                 activeIndex={this.state.activeIndex}
             />
         )
     }
 
     renderTabContent() {
-        const { classPrefix, children} = this.props;
-
         return (
             <TabContent
                 key="tabContent"
-                classPrefix={classPrefix}
-                panels={children}
+                panels={this.immChildren}
                 activeIndex={this.state.activeIndex}
             />
         )
@@ -99,7 +101,7 @@ class TabsComponent extends Component {
     render() {
         const { className } = this.props;
 
-        const classes = classnames(className, 'ui-tabs');
+        const classes = classnames(className, 'ui-tabs'); // todo className 还是 styleName
 
         return (
             <div className={classes}>
