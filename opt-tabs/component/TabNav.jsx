@@ -5,7 +5,7 @@ import EventEmitter from 'events';
 import classnames from 'classnames';
 import CSSModules from 'react-css-modules';
 import { Seq } from 'immutable';
-import { immutableRenderDecorator } from 'react-immutable-render-minix';
+import { immutableRenderDecorator } from 'react-immutable-render-mixin';
 import { Motion, spring } from 'react-motion';
 import InkBar from './InkBar.jsx';
 
@@ -20,8 +20,8 @@ function getOffset(el) {
     const box = el.getBoundingClientRect();
 
     return {
-        top: box.top + window.pageYOffset - html.clientTop;
-        left: box.left + window.pageXOffset - html.clientLeft;
+        top: box.top + window.pageYOffset - html.clientTop,
+        left: box.left + window.pageXOffset - html.clientLeft,
     }
 }
 

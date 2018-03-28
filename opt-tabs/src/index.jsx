@@ -41,15 +41,14 @@ import EventEmitter from 'events';
 import classnames from 'classnames';
 import CSSModules from 'react-css-modules';
 import { Seq } from 'immutable';
-import { immutableRenderDecorator } from 'react-immutable-render-minix';
+import { immutableRenderDecorator } from 'react-immutable-render-mixin';
 import { Motion, spring } from 'react-motion';
-import styles from './app.scss';
 
 import TabsComponent from '../component/TabsComponent.jsx';
 import TabPane from '../component/TabPane.jsx';
 
-import '../component/app.scss';
-import 'font-awesome/css/font-awesome.min.css';
+// import '../component/app.scss';
+import 'font-awesome/scss/font-awesome.scss';
 
 /*
 // 一种方式

@@ -5,7 +5,7 @@ import EventEmitter from 'events';
 import classnames from 'classnames';
 import CSSModules from 'react-css-modules';
 import { Seq } from 'immutable';
-import { immutableRenderDecorator } from 'react-immutable-render-minix';
+import { immutableRenderDecorator } from 'react-immutable-render-mixin';
 import { Motion, spring } from 'react-motion';
 
 import TabContent from './TabContent.jsx';
@@ -36,10 +36,9 @@ class TabsComponent extends Component {
     constructor(props) {
         super(props);
 
+        const currProps = this.props;
         this.handleTabClick = this.handleTabClick.bind(this);
         this.immChildren = Seq(currProps.children); // todo
-
-        const currProps = this.props;
 
         let activeIndex;
 

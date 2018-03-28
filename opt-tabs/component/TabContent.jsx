@@ -5,7 +5,7 @@ import EventEmitter from 'events';
 import classnames from 'classnames';
 import CSSModules from 'react-css-modules';
 import { Seq } from 'immutable';
-import { immutableRenderDecorator } from 'react-immutable-render-minix';
+import { immutableRenderDecorator } from 'react-immutable-render-mixin';
 import { Motion, spring } from 'react-motion';
 
 import styles from './app.scss';
